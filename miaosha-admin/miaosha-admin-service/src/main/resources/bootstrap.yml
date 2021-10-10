@@ -1,0 +1,25 @@
+server:
+  servlet:
+    context-path: /admin
+  port: 8091
+
+spring:
+  application:
+    name: miaosha-admin
+    main:
+      allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  profiles:
+    # 当前使用dev
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        shared-configs:
+          # nacos上配置文件必须是这个名字的组合
+          ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+
+
