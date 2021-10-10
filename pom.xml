@@ -4,6 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>miaosha-admin</module>
+        <module>miaosha-order</module>
     </modules>
 
     <groupId>com.github</groupId>
