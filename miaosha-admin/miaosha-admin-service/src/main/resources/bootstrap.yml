@@ -17,6 +17,12 @@ spring:
       discovery:
         # 注册发现地址
         server-addr: localhost:8848
+        #指定nacos上的命名空间
+        namespace: public
+        # 指定nacos上的配置组名
+        group: DEFAULT_GROUP
+        register-enabled: true
+
       config:
         # 指定配置文件地址
         server-addr: localhost:8848
@@ -26,7 +32,10 @@ spring:
         group: DEFAULT_GROUP
         # 配置文件类型
         file-extension: yml
+        # 刷新
+        refresh-enabled: true
         # nacos作为配置中心，现在要依赖的配置文件
         shared-configs:
           # nacos上配置文件必须是这个名字的组合
-          ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          # - miaosha-admin-dev.yml
+          - ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
