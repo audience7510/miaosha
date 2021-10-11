@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
 
     @Override
-    public MiaoshaGoods getMiaoshaGoods(String id) {
+    public MiaoshaGoods getMiaoshaGoods(Long id) {
         return baseMapper.getMiaoshaGoods(id);
     }
 }

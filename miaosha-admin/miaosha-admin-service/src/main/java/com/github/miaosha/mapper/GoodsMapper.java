@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
-    MiaoshaGoods getMiaoshaGoods(String id);
+    MiaoshaGoods getMiaoshaGoods(Long id);
 }

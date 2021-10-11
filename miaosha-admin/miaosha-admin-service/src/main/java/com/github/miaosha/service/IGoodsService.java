@@ -12,5 +12,5 @@ import com.github.miaosha.pojo.po.MiaoshaGoods;
  * @Description
  */
 public interface IGoodsService extends IService<Goods> {
-    MiaoshaGoods getMiaoshaGoods(String id);
+    MiaoshaGoods getMiaoshaGoods(Long id);
 }

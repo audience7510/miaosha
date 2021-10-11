@@ -1,8 +1,6 @@
 package com.github.miaosha.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.miaosha.common.GoodsKey;
 import com.github.miaosha.common.Result;
 import com.github.miaosha.common.ResultGen;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,23 +43,23 @@ public class GoodsController {
     @GetMapping("list")
     @ApiOperation(value = "查询所有商品列表",notes = "查询所有商品列表，列表返回")
     public Result list() {
-        String s = (String) redisUtil.get(GoodsKey.getGoodsList);
+        String s = (String) redisUtil.get(GoodsKey.goodsList);
         if (!StringUtils.isEmpty(s)){
             List<Goods> list = JSON.parseObject(s, List.class);
             return ResultGen.success(list);
         }else {
             List<Goods> list = goodsService.list();
             String jsonString = JSON.toJSONString(list);
-            redisUtil.set(GoodsKey.getGoodsList,jsonString);
+            redisUtil.set(GoodsKey.goodsList,jsonString);
             return ResultGen.success(list);
         }
     }
 
     @GetMapping("detail/{id}")
-    @ApiOperation(value = "查询所有商品列表",notes = "查询所有商品列表，列表返回")
-    public Result list(@PathVariable String id) {
+    @ApiOperation(value = "查询商品详情",notes = "根据商品id查询秒杀商品详情")
+    public Result list(@PathVariable Long id) {
         //redis查询秒杀商品详情
-        String s = (String)redisUtil.get(GoodsKey.getMiaoshaGoodsDetail+id);
+        String s = (String)redisUtil.get(GoodsKey.miaoshaGoodsDetail +id);
         if (!StringUtils.isEmpty(s)){
             //查到返回
             MiaoshaGoodsVO miaoshaGoodsVO = JSON.parseObject(s, MiaoshaGoodsVO.class);
@@ -71,27 +68,30 @@ public class GoodsController {
             //未查到查数据库
             MiaoshaGoodsVO miaoshaGoodsVO = new MiaoshaGoodsVO();
             //商品详情
-            String stringGoods = (String)redisUtil.get(GoodsKey.getGoods+id);
+            String stringGoods = (String)redisUtil.get(GoodsKey.goods +id);
             if (!StringUtils.isEmpty(stringGoods)){
                 Goods goods = JSON.parseObject(stringGoods, Goods.class);
                 BeanUtils.copyProperties(goods,miaoshaGoodsVO);
             }else {
                 Goods goods = goodsService.getById(id);
                 String jsonString = JSON.toJSONString(goods);
-                redisUtil.set(GoodsKey.getGoods+id,jsonString);
+                redisUtil.set(GoodsKey.goods +id,jsonString);
                 BeanUtils.copyProperties(goods,miaoshaGoodsVO);
             }
-            String stringMiaoshaGoods = (String)redisUtil.get(GoodsKey.getMiaoshaGoods+id);
+            String stringMiaoshaGoods = (String)redisUtil.get(GoodsKey.miaoshaGoods +id);
             if (!StringUtils.isEmpty(stringGoods)){
                 MiaoshaGoods miaoshaGoods = JSON.parseObject(stringMiaoshaGoods, MiaoshaGoods.class);
                 BeanUtils.copyProperties(miaoshaGoods,miaoshaGoodsVO);
 
             }else {
                 MiaoshaGoods miaoshaGoods = goodsService.getMiaoshaGoods(id);
-                BeanUtils.copyProperties(miaoshaGoods,miaoshaGoodsVO);
-                redisUtil.set(GoodsKey.getMiaoshaGoods+id,JSON.toJSONString(miaoshaGoods));
+                //商品可能没有秒杀商品的数据
+                if (miaoshaGoods!=null){
+                    BeanUtils.copyProperties(miaoshaGoods,miaoshaGoodsVO);
+                    redisUtil.set(GoodsKey.miaoshaGoods +id,JSON.toJSONString(miaoshaGoods));
+                }
             }
-            redisUtil.set(GoodsKey.getMiaoshaGoodsDetail+id,JSON.toJSONString(miaoshaGoodsVO));
+            redisUtil.set(GoodsKey.miaoshaGoodsDetail +id,JSON.toJSONString(miaoshaGoodsVO));
             return ResultGen.success(miaoshaGoodsVO);
         }
     }

@@ -5,20 +5,20 @@ public class GoodsKey {
 	/**
 	 * @Description 获取商品列表key
 	 */
-	public static String getGoodsList = "list";
+	public static String goodsList = "list";
 	/**
 	 * @Description 获取单个商品信息key，goods+商品id获取详情
 	 */
-	public static String getGoods = "goods";
+	public static String goods = "goods";
 
 	/**
 	 * @Description 获取单个秒杀商品信息key，miaoshaGoods+商品id获取详情
 	 */
-	public static String getMiaoshaGoods = "miaoshaGoods";
+	public static String miaoshaGoods = "miaoshaGoods";
 	/**
 	 * @Description 获取秒杀商品详情key，MiaoshaDetail+商品id获取详情
 	 */
-	public static String getMiaoshaGoodsDetail = "MiaoshaDetail";
+	public static String miaoshaGoodsDetail = "MiaoshaDetail";
 	/**
 	 * @Description 获取秒杀商品库存key
 	 */
