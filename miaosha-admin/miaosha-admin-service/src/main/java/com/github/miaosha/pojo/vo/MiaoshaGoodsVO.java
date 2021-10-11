@@ -1,52 +1,56 @@
-package com.github.miaosha.pojo.po;
+package com.github.miaosha.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.miaosha.pojo.po.Goods;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
- * @ClassName Goods
+ * @ClassName MiaoshaGoodsVO
  * @Author audience
  * @Date 2021/10/11
  * @Version 1.0
  * @Description
  */
 @Data
-@TableName("goods")
-@ApiModel("商品实体类")
-public class Goods implements Serializable {
+@ApiModel("秒杀商品VO")
+public class MiaoshaGoodsVO extends Goods {
 
     @ApiModelProperty("主键id")
-    @TableId(type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty("商品id")
+    private Long goodsId;
+
+    @ApiModelProperty("秒杀价格")
+    private Double miaoshaPrice;
+
+    @ApiModelProperty("库存数量")
+    private Integer stockCount;
+
+    @ApiModelProperty("秒杀开始时间")
+    private Date startDate;
+
+    @ApiModelProperty("秒杀结束时间")
+    private Date endDate;
+
     @ApiModelProperty("商品名称")
-    @TableField(value = "goods_name")
     private String goodsName;
 
     @ApiModelProperty("商品标题")
-    @TableField(value = "goods_title")
     private String goodsTitle;
 
     @ApiModelProperty("商品的图片")
-    @TableField(value = "goods_img")
     private String goodsImg;
 
     @ApiModelProperty("商品的详情介绍")
-    @TableField(value = "goods_detail")
     private String goodsDetail;
 
     @ApiModelProperty("商品单价")
-    @TableField(value = "goods_price")
     private Double goodsPrice;
 
     @ApiModelProperty("商品库存，-1表示没有限制")
-    @TableField(value = "goods_stock")
     private Integer goodsStock;
 }

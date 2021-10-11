@@ -2,6 +2,7 @@ package com.github.miaosha.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.miaosha.pojo.po.Goods;
+import com.github.miaosha.pojo.po.MiaoshaGoods;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,4 +14,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
+    MiaoshaGoods getMiaoshaGoods(String id);
 }

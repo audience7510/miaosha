@@ -2,6 +2,7 @@ package com.github.miaosha.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.miaosha.pojo.po.Goods;
+import com.github.miaosha.pojo.po.MiaoshaGoods;
 
 /**
  * @InterfaceName IGoodsService
@@ -11,4 +12,5 @@ import com.github.miaosha.pojo.po.Goods;
  * @Description
  */
 public interface IGoodsService extends IService<Goods> {
+    MiaoshaGoods getMiaoshaGoods(String id);
 }
