@@ -5,6 +5,7 @@
     <modules>
         <module>miaosha-admin</module>
         <module>miaosha-order</module>
+        <module>miaosha-common</module>
     </modules>
 
     <groupId>com.github</groupId>
@@ -100,6 +101,7 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
