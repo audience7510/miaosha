@@ -10,34 +10,6 @@ spring:
     # 当前使用dev
     active: dev
   cloud:
-    #网管配置
-    gateway:
-      discovery:
-        locator:
-          #注册到nacos后，开启通过服务发现路由
-          enabled: true
-          # 服务名转为
-          lower-case-service-id: true
-      routes:
-          #设置路由id，唯一
-        - id: miaosha-admin
-          #设置路由的uri lb://nacos注册服务名称
-          uri: lb://miaosha-admin
-          predicates:
-            - Path=/admin
-      globalcors:
-        # 全局允许跨域访问
-        cors-configurations:
-          '[/**]':
-            allow-credentials: true
-            allowed-origins: "*"
-            allowed-headers: "*"
-            allowed-methods:
-              - OPTIONS
-              - GET
-              - POST
-              - PUT
-              - DELETE
     #nacos配置
     nacos:
       discovery:
@@ -63,5 +35,5 @@ spring:
         # nacos作为配置中心，现在要依赖的配置文件
         shared-configs:
           # nacos上配置文件必须是这个名字的组合
-          # - miaosha-admin-dev.yml
+          # - miaosha-gateway-dev.yml
           - ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
