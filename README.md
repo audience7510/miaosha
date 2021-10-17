@@ -2,6 +2,7 @@
 ### 1、Nacos注册与配置中心
 #### 1.1配置nacos集群，通过Nginx转发到nacos集群。nacos三台，Nginx三台，mysql主从  
 配置nacos集群步骤：[点击查看](https://nacos.io/zh-cn/docs/cluster-mode-quick-start.html)  
+
 ### 2、Sentinel限流、熔断降级  
 #### 2.1流控规则：直接、关联、链路  
 Sentinel使用文档[点击查看](https://sentinelguard.io/zh-cn/docs/basic-api-resource-rule.html)  
