@@ -70,8 +70,18 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username:
-    password:
+    virtual-host: /
+    #开启发送端消息抵达确认-消息发送者将消息发送到Broker
+    publisher-confirm-type: CORRELATED
+    #开启发送端消息抵达确认-Broker将消息发送到队列queue
+    publisher-returns: true
+    #只要抵达队列，以异步的方式发送确认
+    template:
+      mandatory: true
+    #消费端消费消息确认，默认是auto自动确认，但是会出现消息丢失问题，manual手动确认,只要不手动确认消息被消费，那么消息不会被队列删除
+    listener:
+      direct:
+        acknowledge-mode: auto
 
 # ====================MybatisPlus====================
 mybatis-plus:
