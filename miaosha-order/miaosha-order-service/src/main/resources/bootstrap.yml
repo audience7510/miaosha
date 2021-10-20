@@ -1,0 +1,39 @@
+server:
+  port: 8092
+spring:
+  application:
+    # 应用名称
+    name: miaosha-order
+    main:
+      allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  profiles:
+    # 当前使用dev
+    active: dev
+  cloud:
+    #nacos配置
+    nacos:
+      discovery:
+        # 注册发现地址
+        server-addr: localhost:8848
+        #指定nacos上的命名空间
+        namespace: public
+        # 指定nacos上的配置组名
+        group: DEFAULT_GROUP
+        register-enabled: true
+
+      config:
+        # 指定配置文件地址
+        server-addr: localhost:8848
+        #指定nacos上的命名空间
+        namespace: public
+        # 指定nacos上的配置组名
+        group: DEFAULT_GROUP
+        # 配置文件类型
+        file-extension: yml
+        # 刷新
+        refresh-enabled: true
+        # nacos作为配置中心，现在要依赖的配置文件
+        shared-configs:
+          # nacos上配置文件必须是这个名字的组合
+          # - miaosha-gateway-dev.yml
+          - ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
