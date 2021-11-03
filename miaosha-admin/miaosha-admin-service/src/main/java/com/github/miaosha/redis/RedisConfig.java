@@ -1,4 +1,4 @@
-package com.github.miaosha.config;
+package com.github.miaosha.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

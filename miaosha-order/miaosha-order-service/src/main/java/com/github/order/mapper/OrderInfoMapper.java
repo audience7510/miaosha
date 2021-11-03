@@ -1,0 +1,16 @@
+package com.github.order.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.order.pojo.po.OrderInfo;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @InterfaceName GoodsMapper
+ * @Author audience
+ * @Date 2021/10/11
+ * @Version 1.0
+ * @Description
+ */
+@Mapper
+public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
+}

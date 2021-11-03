@@ -5,6 +5,8 @@ import com.github.miaosha.common.GoodsKey;
 import com.github.miaosha.common.Result;
 import com.github.miaosha.common.ResultGen;
 import com.github.miaosha.pojo.po.MiaoshaGoods;
+import com.github.miaosha.pojo.vo.SendMessageVO;
+import com.github.miaosha.rabbitmq.MQSender;
 import com.github.miaosha.redis.RedisUtil;
 import com.github.miaosha.service.IMiaoshaService;
 import io.swagger.annotations.Api;
@@ -41,6 +43,8 @@ public class MiaoshaController implements InitializingBean {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    MQSender sender;
     /**
      * redis初始化秒杀商品数量，
      * hashmap内存初始化标记秒杀商品是否还有库存
@@ -72,6 +76,10 @@ public class MiaoshaController implements InitializingBean {
             localOverMap.put(goodsId,true);
             return ResultGen.success("商品已经秒杀完毕");
         }
+        //入队
+        SendMessageVO sendMessageVO = new SendMessageVO();
+        sendMessageVO.setGoodsId(goodsId);
+        sender.sendMiaoshaMessage(sendMessageVO);
         return ResultGen.success();
     }
 
